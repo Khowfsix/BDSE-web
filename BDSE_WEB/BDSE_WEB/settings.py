@@ -78,8 +78,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.oracle",
         "NAME": "localhost:1521/orclpdb",
-        "USER": "employeeadmin",
-        "PASSWORD": "employeeadmin",
+        "USER": "django",
+        "PASSWORD": "django",
     }
 }
 
