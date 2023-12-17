@@ -1,3 +1,8 @@
-numpy==1.21.6
-django==3.2.18
-cx_Oracle==8.3.0
+asgiref==3.7.2
+backports.zoneinfo==0.2.1
+cx-Oracle==8.3.0
+numpy==1.24.4
+pytz==2023.3.post1
+sqlparse==0.4.4
+typing_extensions==4.9.0
+tzdata==2023.3

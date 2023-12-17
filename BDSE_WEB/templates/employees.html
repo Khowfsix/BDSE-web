@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Query Table with Actions in Form</title>
+	<style>
+		/* CSS inline */
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		th,
+		td {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
+
+		tr:hover {
+			background-color: #f2f2f2;
+		}
+
+		.btn {
+			padding: 6px 10px;
+			cursor: pointer;
+			border: none;
+			border-radius: 4px;
+
+			width: 100px;
+			margin: 10px 10px 5px 5px;
+
+		}
+
+		.topbar {
+			background-color: #333;
+			color: white;
+			text-align: center;
+			padding: 15px 0;
+		}
+
+		.topbar a {
+			color: white;
+			text-decoration: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			margin: 0 10px;
+			background-color: #555;
+		}
+
+		.topbar a:hover {
+			background-color: #777;
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- Topbar -->
+	<div class="topbar">
+		<a href="#" onclick="showEmployee()">Employee</a>
+		<a href="#" onclick="showDepartment()">Department</a>
+	</div>
+
+	<!-- HTML -->
+	<table style="margin-top: 20px;">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>John Doe</td>
+				<td>30</td>
+				<td>john@example.com</td>
+				<td>
+					<button class="btn" onclick="editRow(this)" style="background-color: #cbd462;">Edit</button>
+					<button class="btn" onclick="deleteRow(this)" style="background-color: #d56060;">Delete</button>
+				</td>
+			</tr>
+			<!-- Thêm các dòng khác nếu cần -->
+		</tbody>
+	</table>
+
+	<!-- Dialog -->
+	<div id="dialog" style="display: none;">
+		<input type="hidden" id="rowIndex">
+		<input type="text" id="name" placeholder="Name"><br>
+		<input type="text" id="age" placeholder="Age"><br>
+		<input type="text" id="email" placeholder="Email"><br>
+		<button onclick="saveData()">Save</button>
+		<button onclick="closeDialog()">Cancel</button>
+	</div>
+
+	<!-- Button to Add -->
+	<button class="btn" onclick="addRow()" style="background-color: cadetblue;">Add</button>
+
+	<!-- Script -->
+	<script>
+		let dialog = document.getElementById('dialog');
+		let rowIndexInput = document.getElementById('rowIndex');
+		let nameInput = document.getElementById('name');
+		let ageInput = document.getElementById('age');
+		let emailInput = document.getElementById('email');
+
+		function editRow(button) {
+			let row = button.parentNode.parentNode;
+			let cells = row.getElementsByTagName('td');
+			nameInput.value = cells[0].innerText;
+			ageInput.value = cells[1].innerText;
+			emailInput.value = cells[2].innerText;
+			rowIndexInput.value = row.rowIndex;
+			showDialog();
+		}
+
+		function deleteRow(button) {
+			let row = button.parentNode.parentNode;
+			row.parentNode.removeChild(row);
+		}
+
+		function showDialog() {
+			dialog.style.display = 'block';
+		}
+
+		function closeDialog() {
+			dialog.style.display = 'none';
+			nameInput.value = '';
+			ageInput.value = '';
+			emailInput.value = '';
+			rowIndexInput.value = '';
+		}
+
+		function saveData() {
+			let rowIndex = rowIndexInput.value;
+			if (rowIndex) {
+				// Sửa dữ liệu của hàng có sẵn
+				let table = document.querySelector('table');
+				let row = table.rows[rowIndex];
+				let cells = row.getElementsByTagName('td');
+				cells[0].innerText = nameInput.value;
+				cells[1].innerText = ageInput.value;
+				cells[2].innerText = emailInput.value;
+				closeDialog();
+			} else {
+				// Thêm dữ liệu mới vào bảng
+				let tbody = document.querySelector('tbody');
+				let newRow = document.createElement('tr');
+				newRow.innerHTML = `
+                <td>${nameInput.value}</td>
+                <td>${ageInput.value}</td>
+                <td>${emailInput.value}</td>
+                <td>
+                    <button class="btn" onclick="editRow(this)">Edit</button>
+                    <button class="btn" onclick="deleteRow(this)">Delete</button>
+                </td>
+            `;
+				tbody.appendChild(newRow);
+				closeDialog();
+			}
+		}
+
+		function addRow() {
+			closeDialog();
+			showDialog();
+		}
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <style>
+        /* CSS inline */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form onsubmit="return validateForm()">
+            <input type="text" id="username" placeholder="Username" required><br>
+            <input type="password" id="password" placeholder="Password" required><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Kiểm tra xem username và password có trống không
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Vui lòng nhập đầy đủ username và password.');
+                return false;
+            }
+
+            // Thực hiện kiểm tra các điều kiện khác nếu cần thiết
+
+            // Trả về true để submit form nếu dữ liệu hợp lệ
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>
