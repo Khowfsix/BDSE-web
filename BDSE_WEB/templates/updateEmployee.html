@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Query Table with Actions in Form</title>
+    <title>Update employee</title>
     <style>
         /* CSS inline */
         table {
@@ -72,26 +72,23 @@
         <a href="logout">Logout</a>
     </div>
 
-    <h2>Department List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Mã phòng ban</th>
-                <th>Tên phòng ban</th>
-                <th>Trưởng phòng ban</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
-            <tr>
-                {% for value in row.values %}
-                <td>{{ value }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <form action="{% url 'updateEmployee' id=id %}" method="post"
+        style="text-align: center; margin-top: 100px; gap: 20px;">
+        {% csrf_token %}
+        <!-- Các trường thông tin cần cập nhật -->
+        <label for="name">Tên:</label><br>
+        <input type="text" id="name" name="name" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
 
+        <label for="birthdate">Ngày sinh:</label><br>
+        <input type="date" id="birthdate" name="birthdate" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
+
+        <!-- Nút bấm cập nhật -->
+        <button style="border: #333; border-radius: 10%; background-color: aquamarine; width: 200px; " class="btn"
+            type="submit">Lưu</button>
+    </form>
 
     </table>
 </body>

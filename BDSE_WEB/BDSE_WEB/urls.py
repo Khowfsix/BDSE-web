@@ -18,6 +18,8 @@ from hrWeb.views import (
     login,
     logout,
     listEmployee,
+    updateEmployee,
+    deleteEmployee,
     getDepartment,
 )
 from django.urls import path
@@ -28,5 +30,7 @@ urlpatterns = [
     path("login", view=login, name="login"),
     path("logout", view=logout, name="logout"),
     path("employees", view=listEmployee, name="employees"),
+    path("updateEmployee/<str:id>", view=updateEmployee, name="updateEmployee"),
+    path("deleteEmployee/<str:id>", view=deleteEmployee, name="deleteEmployee"),
     path("department", view=getDepartment, name="departments"),
 ]
