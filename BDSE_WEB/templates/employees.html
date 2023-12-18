@@ -73,13 +73,20 @@
 	</div>
 
 	<h2>Employee List</h2>
+	{% if message %}
+	<p>{{ message }}</p>
+	{% endif %}
 	<table>
 		<thead>
 			<tr>
-				<!-- Thêm các thẻ <th> cho các cột -->
-				{% for column_name in data.0.keys %}
-				<th>{{ column_name }}</th>
-				{% endfor %}
+
+				<th>MÃ NHÂN VIÊN</th>
+				<th>TÊN</th>
+				<th>NGÀY SINH</th>
+				<th>EMAIL</th>
+				<th>PHÒNG BAN</th>
+				<th>LƯƠNG</th>
+				<th>MÃ SỐ THUẾ</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -112,7 +119,7 @@
 	</div>
 
 	<!-- Button to Add -->
-	<button class="btn" onclick="addRow()" style="background-color: cadetblue;">Add</button>
+	<!-- <button class="btn" onclick="addRow()" style="background-color: cadetblue;">Add</button> -->
 
 	<!-- Script -->
 	<script>

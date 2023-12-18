@@ -9,8 +9,6 @@ schema_name = "EMPLOYEEADMIN"
 
 
 # Create your views here.
-
-
 def login(request):
     # Kết nối đến cơ sở dữ liệu Oracle
     global connection
@@ -34,12 +32,12 @@ def login(request):
 def logout(request):
     del request.session["username"]
     del request.session["password"]
-    return render(template_name="login.html")
+    return render(request, template_name="login.html")
 
 
 def listEmployee(request):
     # Truy vấn bảng từ schema khác
-    query = f"SELECT * FROM {schema_name}.{employeeTableName}"
+    query = "select n.manhanvien,n.ten,n.ngaysinh,n.email,p.tenphongban,n.luong,n.masothue from employeeadmin.nhanvien n join employeeadmin.phongban p on ( n.phongban = p.maphongban )"
     username = request.session.get("username")
     password = request.session.get("password")
     connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
@@ -56,19 +54,40 @@ def listEmployee(request):
     cursor.close()
 
     # Truyền dữ liệu vào template và render
-    return render(request, "employees.html", {"data": data})
-
-
-def addEmployee(request):
-    return render(request, "employees.html")
+    return render(request, "employees.html", {"data": data, "message": "bruh"})
 
 
 def updateEmployee(request):
-    return render(request, "employees.html")
+    if request.method == "POST":
+        username = request.session.get("username")
+        password = request.session.get("password")
+        connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
+
+        # Thực thi truy vấn
+        id = request.POST.get("id")
+        query = f"SELECT * FROM {schema_name}.{employeeTableName}"
+        cursor = connection.cursor()
+        cursor.execute(query)
+        cursor.close()
+
+    return HttpResponseRedirect("/employees")
 
 
 def deleteEmployee(request):
-    return render(request, "employees.html")
+    # Truy vấn bảng từ schema khác
+    if request.method == "POST":
+        username = request.session.get("username")
+        password = request.session.get("password")
+        connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
+
+        # Thực thi truy vấn
+        id = request.POST.get("id")
+        query = f"SELECT * FROM {schema_name}.{employeeTableName}"
+        cursor = connection.cursor()
+        cursor.execute(query)
+        cursor.close()
+
+    return HttpResponseRedirect("/employees")
 
 
 def getDepartment(request):

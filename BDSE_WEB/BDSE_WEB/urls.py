@@ -18,9 +18,6 @@ from hrWeb.views import (
     login,
     logout,
     listEmployee,
-    addEmployee,
-    updateEmployee,
-    deleteEmployee,
     getDepartment,
 )
 from django.urls import path
