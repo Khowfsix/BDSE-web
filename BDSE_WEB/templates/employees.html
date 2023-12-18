@@ -67,9 +67,9 @@
 
 	<!-- Topbar -->
 	<div class="topbar">
-		<a href="employees" onclick="showEmployee()">Employee</a>
-		<a href="department" onclick="showDepartment()">Department</a>
-		<a href="logout">Logout</a>
+		<a href="{% url 'employees' %}">Employee</a>
+		<a href=" {% url 'department' %}">Department</a>
+		<a href="{% url 'logout' %}">Logout</a>
 	</div>
 
 	{% if messages %}

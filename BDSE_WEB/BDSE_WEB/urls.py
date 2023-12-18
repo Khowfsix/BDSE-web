@@ -32,5 +32,5 @@ urlpatterns = [
     path("employees", view=listEmployee, name="employees"),
     path("updateEmployee/<str:id>", view=updateEmployee, name="updateEmployee"),
     path("deleteEmployee/<str:id>", view=deleteEmployee, name="deleteEmployee"),
-    path("department", view=getDepartment, name="departments"),
+    path("department", view=getDepartment, name="department"),
 ]

@@ -29,7 +29,7 @@ def logout(request):
 
 def listEmployee(request):
     # Truy vấn bảng từ schema khác
-    query = "select n.manhanvien,n.ten,n.ngaysinh,n.email,p.tenphongban,n.luong,n.masothue from employeeadmin.nhanvien n join employeeadmin.phongban p on ( n.phongban = p.maphongban )"
+    query = "select n.manhanvien, n.ten, n.ngaysinh, n.email, p.tenphongban, n.luong, n.masothue from EMPLOYEEADMIN.nhanvien n join EMPLOYEEADMIN.phongban p on (n.phongban = p.maphongban) order by p.maphongban"
     username = request.session.get("username")
     password = request.session.get("password")
     connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
@@ -49,11 +49,11 @@ def listEmployee(request):
 
 
 def updateEmployee(request, id):
-    if request.method == "POST":
-        username = request.session.get("username")
-        password = request.session.get("password")
-        connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
+    username = request.session.get("username")
+    password = request.session.get("password")
+    connection = cx_Oracle.connect(f"{username}/{password}@localhost:1521/orclpdb")
 
+    if request.method == "POST":
         name = request.POST["name"]
         email = request.POST["email"]
         birthdate = request.POST["birthdate"]
@@ -79,7 +79,20 @@ def updateEmployee(request, id):
                 connection.close()
         return redirect("/employees")
     else:
-        return render(request, "updateEmployee.html", {"id": id})
+        try:
+            query = f"select * from {schema_name}.{employeeTableName} where manhanvien='{id}'"
+            cursor = connection.cursor()
+            cursor.execute(query)
+
+            data = cursor.fetchall()
+            print(data)
+
+        except cx_Oracle.Error as error:
+            messages.error(request, f"Lỗi khi truy vấn: {error}")
+        finally:
+            if "connection" in locals():
+                connection.close()
+        return render(request, "updateEmployee.html", {"id": id, "data": data[0]})
 
 
 def deleteEmployee(request, id):

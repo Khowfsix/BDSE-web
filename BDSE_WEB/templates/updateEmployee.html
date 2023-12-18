@@ -77,13 +77,25 @@
         {% csrf_token %}
         <!-- Các trường thông tin cần cập nhật -->
         <label for="name">Tên:</label><br>
-        <input type="text" id="name" name="name" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
+        <input type="text" id="name" name="name" style="width: 400px; margin: 5px 5px 5px 5px;"
+            value={{data.1}}><br><br>
 
         <label for="birthdate">Ngày sinh:</label><br>
-        <input type="date" id="birthdate" name="birthdate" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
+        <input type="date" id="birthdate" name="birthdate" style="width: 400px; margin: 5px 5px 5px 5px;"
+            value={{data.2}}}><br><br>
 
         <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" style="width: 400px; margin: 5px 5px 5px 5px;"><br><br>
+        <input type="email" id="email" name="email" style="width: 400px; margin: 5px 5px 5px 5px;"
+            value={{data.3}}><br><br>
+
+        <label for="salary">Lương:</label><br>
+        <input type="number" id="salary" name="salary" style="width: 400px; margin: 5px 5px 5px 5px;"
+            value={{data.5}}><br><br>
+
+        <label for="tax">Mã số thuế:</label><br>
+        <input type="number" id="tax" name="tax" style="width: 400px; margin: 5px 5px 5px 5px;"
+            value={{data.6}}><br><br>
+
 
         <!-- Nút bấm cập nhật -->
         <button style="border: #333; border-radius: 10%; background-color: aquamarine; width: 200px; " class="btn"
