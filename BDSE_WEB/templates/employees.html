@@ -67,32 +67,38 @@
 
 	<!-- Topbar -->
 	<div class="topbar">
-		<a href="#" onclick="showEmployee()">Employee</a>
-		<a href="#" onclick="showDepartment()">Department</a>
+		<a href="employees" onclick="showEmployee()">Employee</a>
+		<a href="department" onclick="showDepartment()">Department</a>
+		<a href="logout">Logout</a>
 	</div>
 
-	<!-- HTML -->
-	<table style="margin-top: 20px;">
+	<h2>Employee List</h2>
+	<table>
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Age</th>
-				<th>Email</th>
+				<!-- Thêm các thẻ <th> cho các cột -->
+				{% for column_name in data.0.keys %}
+				<th>{{ column_name }}</th>
+				{% endfor %}
 				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
+			{% for row in data %}
 			<tr>
-				<td>John Doe</td>
-				<td>30</td>
-				<td>john@example.com</td>
+				{% for value in row.values %}
+				<td>{{ value }}</td>
+				{% endfor %}
 				<td>
 					<button class="btn" onclick="editRow(this)" style="background-color: #cbd462;">Edit</button>
 					<button class="btn" onclick="deleteRow(this)" style="background-color: #d56060;">Delete</button>
 				</td>
 			</tr>
-			<!-- Thêm các dòng khác nếu cần -->
+			{% endfor %}
 		</tbody>
+	</table>
+
+
 	</table>
 
 	<!-- Dialog -->

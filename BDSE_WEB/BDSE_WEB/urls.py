@@ -22,13 +22,14 @@ from hrWeb.views import (
     updateEmployee,
     deleteEmployee,
     getDepartment,
-    loginPage,
 )
 from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login", view=loginPage, name="login"),
+    path("", view=login, name="index"),
+    path("login", view=login, name="login"),
+    path("logout", view=logout, name="logout"),
     path("employees", view=listEmployee, name="employees"),
     path("department", view=getDepartment, name="departments"),
 ]

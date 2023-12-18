@@ -67,117 +67,34 @@
 
     <!-- Topbar -->
     <div class="topbar">
-        <a href="#" onclick="showEmployee()">Employee</a>
-        <a href="#" onclick="showDepartment()">Department</a>
+        <a href="employees" onclick="showEmployee()">Employee</a>
+        <a href="department" onclick="showDepartment()">Department</a>
+        <a href="logout">Logout</a>
     </div>
 
-    <!-- HTML -->
-    <table style="margin-top: 20px;">
+    <h2>Department List</h2>
+    <table>
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Email</th>
-                <th>Action</th>
+                <!-- Thêm các thẻ <th> cho các cột -->
+                {% for column_name in data.0.keys %}
+                <th>{{ column_name }}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
+            {% for row in data %}
             <tr>
-                <td>John Doe</td>
-                <td>30</td>
-                <td>john@example.com</td>
-                <td>
-                    <button class="btn" onclick="editRow(this)" style="background-color: #cbd462;">Edit</button>
-                    <button class="btn" onclick="deleteRow(this)" style="background-color: #d56060;">Delete</button>
-                </td>
+                {% for value in row.values %}
+                <td>{{ value }}</td>
+                {% endfor %}
             </tr>
-            <!-- Thêm các dòng khác nếu cần -->
+            {% endfor %}
         </tbody>
     </table>
 
-    <!-- Dialog -->
-    <div id="dialog" style="display: none;">
-        <input type="hidden" id="rowIndex">
-        <input type="text" id="name" placeholder="Name"><br>
-        <input type="text" id="age" placeholder="Age"><br>
-        <input type="text" id="email" placeholder="Email"><br>
-        <button onclick="saveData()">Save</button>
-        <button onclick="closeDialog()">Cancel</button>
-    </div>
 
-    <!-- Button to Add -->
-    <button class="btn" onclick="addRow()" style="background-color: cadetblue;">Add</button>
-
-    <!-- Script -->
-    <script>
-        let dialog = document.getElementById('dialog');
-        let rowIndexInput = document.getElementById('rowIndex');
-        let nameInput = document.getElementById('name');
-        let ageInput = document.getElementById('age');
-        let emailInput = document.getElementById('email');
-
-        function editRow(button) {
-            let row = button.parentNode.parentNode;
-            let cells = row.getElementsByTagName('td');
-            nameInput.value = cells[0].innerText;
-            ageInput.value = cells[1].innerText;
-            emailInput.value = cells[2].innerText;
-            rowIndexInput.value = row.rowIndex;
-            showDialog();
-        }
-
-        function deleteRow(button) {
-            let row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        }
-
-        function showDialog() {
-            dialog.style.display = 'block';
-        }
-
-        function closeDialog() {
-            dialog.style.display = 'none';
-            nameInput.value = '';
-            ageInput.value = '';
-            emailInput.value = '';
-            rowIndexInput.value = '';
-        }
-
-        function saveData() {
-            let rowIndex = rowIndexInput.value;
-            if (rowIndex) {
-                // Sửa dữ liệu của hàng có sẵn
-                let table = document.querySelector('table');
-                let row = table.rows[rowIndex];
-                let cells = row.getElementsByTagName('td');
-                cells[0].innerText = nameInput.value;
-                cells[1].innerText = ageInput.value;
-                cells[2].innerText = emailInput.value;
-                closeDialog();
-            } else {
-                // Thêm dữ liệu mới vào bảng
-                let tbody = document.querySelector('tbody');
-                let newRow = document.createElement('tr');
-                newRow.innerHTML = `
-                <td>${nameInput.value}</td>
-                <td>${ageInput.value}</td>
-                <td>${emailInput.value}</td>
-                <td>
-                    <button class="btn" onclick="editRow(this)">Edit</button>
-                    <button class="btn" onclick="deleteRow(this)">Delete</button>
-                </td>
-            `;
-                tbody.appendChild(newRow);
-                closeDialog();
-            }
-        }
-
-        function addRow() {
-            closeDialog();
-            showDialog();
-        }
-    </script>
-
+    </table>
 </body>
 
 </html>
